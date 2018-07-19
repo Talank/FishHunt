@@ -6,6 +6,7 @@ public class MoveFish : MonoBehaviour
 {
 
     public float speed;
+    private GameObject Fish;
 
     //Vector3 mouse_pos;
     //Transform target;  //Assign to the object you want to rotate
@@ -13,6 +14,11 @@ public class MoveFish : MonoBehaviour
     //var angle  public Transform Target;
 
     //float;
+
+    void Start()
+    {
+        Fish = GameObject.Find("../Resources/Fish");
+    }
 
     private void Update()
     {
@@ -31,13 +37,13 @@ public class MoveFish : MonoBehaviour
         mousePos.x = mousePos.x - objectPos.x;
         mousePos.y = mousePos.y - objectPos.y;
 
-        float angle = Mathf.Atan2(0, mousePos.x) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
 
     }
 
     public void Rotating()
     {
-
+        //keep the rotating item code here
     }
 }
