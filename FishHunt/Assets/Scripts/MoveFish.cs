@@ -31,8 +31,11 @@ public class MoveFish : MonoBehaviour
         mousePos.x = mousePos.x - objectPos.x;
         mousePos.y = mousePos.y - objectPos.y;
 
-        float angle = Mathf.Atan2(0, mousePos.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
+        //transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+
 
     }
 
@@ -40,4 +43,5 @@ public class MoveFish : MonoBehaviour
     {
 
     }
+    
 }
