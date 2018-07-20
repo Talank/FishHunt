@@ -7,21 +7,15 @@ public class MoveFish : MonoBehaviour
 
     public float speed;
     //private GameObject Fish;
-    //float previousPositionDifferenceY;
+    float previousPositionDifferenceY;
     float previousPositionDifferenceX;
-
-    //Vector3 mouse_pos;
-    //Transform target;  //Assign to the object you want to rotate
-    //Vector3 object_pos;
-    //var angle  public Transform Target;
-
-    //float;
+    bool SignChangeOnYscale;
 
     void Start()
     {
-        //Fish = GameObject.Find("../Resources/Fish");
-        //previousPositionDifferenceY = Input.mousePosition.y;
+        previousPositionDifferenceY = Input.mousePosition.y;
         previousPositionDifferenceX = Input.mousePosition.x;
+        SignChangeOnYscale = false;
     }
 
     private void Update()
@@ -31,11 +25,12 @@ public class MoveFish : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-
-
         //rotation
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 5.23f;
+
+        if (mousePos.x < 0)
+            SignChangeOnYscale = true;
 
         Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
         mousePos.x = mousePos.x - objectPos.x;
@@ -43,36 +38,54 @@ public class MoveFish : MonoBehaviour
 
         float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
 
-        
-        if(previousPositionDifferenceX * mousePos.x < 0)
+        if(mousePos.x < 0)
         {
             Vector3 theScale = transform.localScale;
-            //theScale.x *= -1;
-            theScale.y *= -1;
-            transform.localScale = theScale;
-            angle = 360 - angle;
-
+            if(theScale.y > 0)
+            {
+                theScale.y *= -1;
+                transform.localScale = theScale;
+            }
         }
 
-        /*if(previousPositionDifferenceX * mousePos.x <0)
+        if(mousePos.x > 0)
         {
             Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
-        }*/
+            if (theScale.y < 0)
+            {
+                theScale.y *= -1;
+                transform.localScale = theScale;
+                if (angle == 0)
+                    angle += 180;
+            }
+        }
 
-
-
-        //previousPositionDifferenceY = mousePos.y;
+        previousPositionDifferenceY = mousePos.y;
         previousPositionDifferenceX = mousePos.x;
-
-        //Quaternion.rota;
 
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
 
+
+        if(SignChangeOnYscale)
+        {
+            Vector3 theScale = transform.localScale;
+            theScale.y *= -1;
+            transform.localScale = theScale;
+            SignChangeOnYscale = false;
+        }
+
+        if (transform.localRotation.z == 0 && transform.localScale.y <0)
+        {
+            //if someone can find the way to change the z rotation, then make it 180
+            //in such case no need of scaling again
+            Vector3 theScale = transform.localScale;
+            theScale.y *= -1;
+            transform.localScale = theScale;
+        }
+    }
+    
     public void Rotating()
     {
         //keep the rotating item code here
