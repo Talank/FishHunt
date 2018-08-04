@@ -23,7 +23,7 @@ public class MoveFish : MonoBehaviour
         Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         target.z = transform.position.z;
 
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime / transform.localScale.x);
 
         //rotation
         Vector3 mousePos = Input.mousePosition;
