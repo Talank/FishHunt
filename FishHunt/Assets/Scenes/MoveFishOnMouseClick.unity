@@ -208,7 +208,6 @@ GameObject:
   m_Component:
   - component: {fileID: 694844477}
   - component: {fileID: 694844476}
-  - component: {fileID: 694844479}
   m_Layer: 0
   m_Name: Food_Generator
   m_TagString: Food
@@ -242,21 +241,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &694844479
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 694844475}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!1 &1335722154
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +405,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1751915507}
   - component: {fileID: 1751915506}
+  - component: {fileID: 1751915508}
   m_Layer: 0
   m_Name: sky
   m_TagString: Untagged
@@ -480,12 +465,37 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1751915505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.078, y: 12.68, z: 0}
+  m_LocalPosition: {x: -0.078, y: 12.68, z: -3}
   m_LocalScale: {x: 3.117748, y: 1.5763657, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1751915508
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1751915505}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 19.2, y: 3.29}
+    newSize: {x: 19.2, y: 3.29}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 1
+  serializedVersion: 2
+  m_Size: {x: 19.2, y: 3.29}
+  m_EdgeRadius: 0
 --- !u!1 &1858136038
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,6 +509,7 @@ GameObject:
   - component: {fileID: 1858136042}
   - component: {fileID: 1858136045}
   - component: {fileID: 1858136043}
+  - component: {fileID: 1858136044}
   m_Layer: 0
   m_Name: MouthClose_FinUp_TailDown
   m_TagString: Untagged
@@ -576,7 +587,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1858136038}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.21, y: -0.15, z: -3}
+  m_LocalPosition: {x: -0.21, y: -0.15, z: -4}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -609,6 +620,26 @@ CircleCollider2D:
   m_Offset: {x: 1.47, y: 0.19}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!50 &1858136044
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1858136038}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &1858136045
 MonoBehaviour:
   m_ObjectHideFlags: 0
