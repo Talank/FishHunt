@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 1858136043}
   - component: {fileID: 1858136044}
   m_Layer: 0
-  m_Name: MouthClose_FinUp_TailDown
+  m_Name: MouthClose_FinUp_TailDown_DB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
