@@ -15,7 +15,15 @@ public class EatFood : MonoBehaviour {
                 if (coll.gameObject.tag.Equals("Food"))
                 {
                     anim.SetTrigger("open");
-                    transform.localScale += new Vector3(Increase, Increase, 1);
+                    if(transform.localScale.y<0)
+                    {
+                        transform.localScale += new Vector3(Increase, -Increase, 0);
+                    }
+                    else
+                    {
+                        transform.localScale += new Vector3(Increase, Increase, 0);
+                    }
+                  
                     Destroy(coll.gameObject);
                 }
             }
