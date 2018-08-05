@@ -19,6 +19,37 @@ public class CameraFollow : MonoBehaviour {
     void LateUpdate () 
     {
         // Set the position of the camera's transform to be the same as the player's, but offset by the calculated offset distance.
-        transform.position = target.transform.position + offset;
+       /* float minX = -19.24f;
+        float maxX = 18.65f;
+        float minY = -10.46f;
+        float maxY = 4.79f;
+        if((target.transform.position.x >= minX))
+        {
+            //if ((target.transform.position.x <= maxX))
+            //{
+                //if ((target.transform.position.y >= minY))
+                //{
+                  //  if ((target.transform.position.y <= maxY))
+                    //{*/
+                        transform.position = target.transform.position + offset;
+                    //}
+               // }
+            //}
+                
+       // }
+        
+       /* {
+            transform.position = target.transform.position + offset;
+        }
+       
+        {
+            transform.position = target.transform.position + offset;
+        }
+        
+        {
+            transform.position = target.transform.position + offset;
+        }
+        */
+
     }
 }
