@@ -29,7 +29,7 @@ public class EatFood : MonoBehaviour {
                     }
 
                     Score += 2;
-                    Letters.text = "Score: " + Score;
+                    Letters.text = "SCORE: " + Score;
 
                     Destroy(coll.gameObject);
                 }
