@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class MoveFish : MonoBehaviour
 {
 
     public float speed;
+    Rigidbody2D rb;
     //private GameObject Fish;
     float previousPositionDifferenceY;
     float previousPositionDifferenceX;
@@ -13,82 +15,118 @@ public class MoveFish : MonoBehaviour
 
     void Start()
     {
-        previousPositionDifferenceY = Input.mousePosition.y;
-        previousPositionDifferenceX = Input.mousePosition.x;
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        previousPositionDifferenceY = CrossPlatformInputManager.GetAxis("Vertical");
+        previousPositionDifferenceX = CrossPlatformInputManager.GetAxis("Horizontal");
         SignChangeOnYscale = false;
     }
 
     private void Update()
     {
-        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        target.z = transform.position.z;
+        //Get component of joystick current position
 
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime / transform.localScale.x);
+        Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
 
-        //rotation
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 5.23f;
 
-        if (mousePos.x < 0)
-            SignChangeOnYscale = true;
+        if (CrossPlatformInputManager.GetAxis("Horizontal") < 0)
+          SignChangeOnYscale = true;
 
-        Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
-        mousePos.x = mousePos.x - objectPos.x;
-        mousePos.y = mousePos.y - objectPos.y;
+        //if player tries to move towards left, then do sxaleX *= -1 inorder to get the mirror image
 
-        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
+        //mousePos.x = mousePos.x - objectPos.x;
+        //mousePos.y = mousePos.y - objectPos.y;
 
-        if(mousePos.x < 0)
+        var tempX = CrossPlatformInputManager.GetAxis("Horizontal") - previousPositionDifferenceX;
+        var tempY = CrossPlatformInputManager.GetAxis("Vertical") - previousPositionDifferenceY;
+
+        if (tempX < 0)
         {
             Vector3 theScale = transform.localScale;
-            if(theScale.y > 0)
+            if (theScale.y > 0)
             {
                 theScale.y *= -1;
                 transform.localScale = theScale;
             }
         }
 
-        if(mousePos.x > 0)
+        if (tempX > 0)
         {
             Vector3 theScale = transform.localScale;
             if (theScale.y < 0)
             {
                 theScale.y *= -1;
                 transform.localScale = theScale;
-                if (angle == 0)
-                    angle += 180;
+                
             }
         }
 
-        previousPositionDifferenceY = mousePos.y;
-        previousPositionDifferenceX = mousePos.x;
-
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        previousPositionDifferenceY = CrossPlatformInputManager.GetAxis("Vertical");
+        previousPositionDifferenceX = CrossPlatformInputManager.GetAxis("Horizontal");
 
 
-        if(SignChangeOnYscale)
+        //Get our player and transform it
+        //for moving fish
+        rb.velocity = JoystickPosition * speed;
+
+        //For rotation
+        Vector2 v = rb.velocity;
+        var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
+
+
+
+
+        //after rotation
+        /*if (SignChangeOnYscale)
         {
             Vector3 theScale = transform.localScale;
-            theScale.y *= -1;
-            transform.localScale = theScale;
+            if(tempX < 0 && rb.velocity.magnitude == 0)
+            {
+                theScale.y *= -1;
+                transform.localScale = theScale;
+            }
             SignChangeOnYscale = false;
         }
 
-        if (transform.localRotation.z == 0 && transform.localScale.y <0)
+        if (transform.localRotation.z == 0 && transform.localScale.y < 0)
         {
             //if someone can find the way to change the z rotation, then make it 180
             //in such case no need of scaling again
             Vector3 theScale = transform.localScale;
-            theScale.y *= -1;
+            theScale.x *= -1;
+            transform.localScale = theScale;
+        }*/
+
+/*        if(transform.localScale.y < 0 && rb.velocity.magnitude == 0)
+        {
+            //scalex
+            Vector3 theScale = transform.localScale;
+            theScale.x *= -1;
             transform.localScale = theScale;
         }
+
+        if(transform.localScale.x < 0 && rb.velocity.magnitude == 0)
+        {
+            //scaley
+            Vector3 theScale = transform.localScale;
+            theScale.y *= -1;
+            transform.localScale = theScale;
+        }*/
+
+        //it was found that after stopping, if x position is -ve then the fish is upside doen.. 
+        //so lets do, ScaleY *=-1
+
+            if(transform.position.x < 0 && rb.velocity.magnitude == 0)
+        {
+            Vector3 theScale = transform.localScale;
+            if (theScale.y > 0)
+            {
+                theScale.y *= -1;
+                transform.localScale = theScale;
+
+            }
+        }
     }
-    
-    public void Rotating()
-    {
-        //keep the rotating item code here
-    }
-    
 }
