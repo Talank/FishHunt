@@ -37,8 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4173549779421906}
   - component: {fileID: 212413474898787268}
-  - component: {fileID: 95627527334286218}
   - component: {fileID: 114606191305949970}
+  - component: {fileID: 95627527334286218}
   - component: {fileID: 114244673938659574}
   - component: {fileID: 58599256541277126}
   - component: {fileID: 50675009834267322}
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35eb397910c0ee844a696c58cd405564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 2
 --- !u!114 &114621917253000606
 MonoBehaviour:
   m_ObjectHideFlags: 1

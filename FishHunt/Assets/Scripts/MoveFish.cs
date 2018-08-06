@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class MoveFish : MonoBehaviour
+public class MoveFish : NetworkBehaviour
 {
 
     public float speed;
@@ -24,6 +25,9 @@ public class MoveFish : MonoBehaviour
     private void Update()
     {
         //Get component of joystick current position
+        if(!isLocalPlayer){
+            return;
+        }
 
         Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
 
