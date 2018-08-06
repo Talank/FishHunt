@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6326f721e6f7f41b760539fb874e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Food: {fileID: 1528394725702536, guid: 98463fab16351b0408f19d6b630757c5, type: 2}
+  Food: {fileID: 1699896921244144, guid: 2981c6d548d18d842a644cd1c72455e3, type: 2}
   Speed: 2
 --- !u!4 &694844477
 Transform:
