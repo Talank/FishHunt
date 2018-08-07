@@ -9,16 +9,22 @@ public class MoveFish : MonoBehaviour
     public float speed;
     Rigidbody2D rb;
     //private GameObject Fish;
-    float previousPositionDifferenceY;
-    float previousPositionDifferenceX;
-    bool SignChangeOnYscale;
+    //float previousPositionDifferenceY;
+    float previousPositionY;
+    //bool SignChangeOnYscale;
+    string PreviouslyFacing, ToFace;
+    bool rotateFlag;
 
     void Start()
     {
+        rotateFlag = false;
+        PreviouslyFacing = "Right";
+        //ToFace = "Right"
         rb = gameObject.GetComponent<Rigidbody2D>();
-        previousPositionDifferenceY = CrossPlatformInputManager.GetAxis("Vertical");
+        previousPositionY = transform.position.y;
+        /*previousPositionDifferenceY = CrossPlatformInputManager.GetAxis("Vertical");
         previousPositionDifferenceX = CrossPlatformInputManager.GetAxis("Horizontal");
-        SignChangeOnYscale = false;
+        SignChangeOnYscale = false;*/
     }
 
     private void Update()
@@ -28,105 +34,113 @@ public class MoveFish : MonoBehaviour
         Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
 
 
-        if (CrossPlatformInputManager.GetAxis("Horizontal") < 0)
-          SignChangeOnYscale = true;
 
-        //if player tries to move towards left, then do sxaleX *= -1 inorder to get the mirror image
-
-        //mousePos.x = mousePos.x - objectPos.x;
-        //mousePos.y = mousePos.y - objectPos.y;
-
-        var tempX = CrossPlatformInputManager.GetAxis("Horizontal") - previousPositionDifferenceX;
-        var tempY = CrossPlatformInputManager.GetAxis("Vertical") - previousPositionDifferenceY;
-
-        if (tempX < 0)
+        if (previousPositionY < 0)
         {
-            Vector3 theScale = transform.localScale;
-            if (theScale.y > 0)
-            {
-                theScale.y *= -1;
-                transform.localScale = theScale;
-            }
+            ToFace = "Left";
         }
 
-        if (tempX > 0)
+        else
         {
-            Vector3 theScale = transform.localScale;
-            if (theScale.y < 0)
-            {
-                theScale.y *= -1;
-                transform.localScale = theScale;
-                
-            }
+            ToFace = "Right";
         }
 
-        previousPositionDifferenceY = CrossPlatformInputManager.GetAxis("Vertical");
-        previousPositionDifferenceX = CrossPlatformInputManager.GetAxis("Horizontal");
+        if (rb.velocity.magnitude == 0)
+        {
+            
+            if (ToFace == "Right")
+            {
+                Vector3 theScale = transform.localScale;
+                if (theScale.y < 0.0)
+                {
+                    Debug.Log(theScale.y);
+                    theScale.y *= -1;
+                    transform.localScale = theScale;
+                }
+
+            }
+        }
+        
+        
+
+
+
 
 
         //Get our player and transform it
         //for moving fish
-        rb.velocity = JoystickPosition * speed;
+        rb.velocity =  JoystickPosition* speed;
+
+
+
+
+
+
+
+
+
+
+        if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 275)
+        {
+            //if (rotateFlag)
+            //{
+                Vector3 theScale = transform.localScale;
+                if(theScale.y > 0)
+                {
+                    theScale.y *= -1;
+                }
+
+                if (theScale.x < 0)
+                {
+                    theScale.x *= -1;
+                }
+
+            transform.localScale = theScale;
+                //rotateFlag = false;
+            //}
+        }
+        // else
+        // rotateFlag = true;
+
+        else
+        {
+            Vector3 theScale = transform.localScale;
+            if (theScale.y < 0.0)
+            {
+                theScale.y *= -1;
+            }
+
+            if (theScale.x < 0.0)
+            {
+                theScale.x *= -1;
+            }
+
+            transform.localScale = theScale;
+        }
+
+        //Debug.Log(transform.rotation.eulerAngles.z);
+
+        
+        //if horizontal is +ve, make x,y +ve
+        //if horizontal -ve, make x, +ve, y -ve;
+
+
+
+
+
+
+
+
+
+
 
         //For rotation
         Vector2 v = rb.velocity;
+        //Vector2 AngularVelocity;
+        
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-
-
-
-
-
-        //after rotation
-        /*if (SignChangeOnYscale)
-        {
-            Vector3 theScale = transform.localScale;
-            if(tempX < 0 && rb.velocity.magnitude == 0)
-            {
-                theScale.y *= -1;
-                transform.localScale = theScale;
-            }
-            SignChangeOnYscale = false;
-        }
-
-        if (transform.localRotation.z == 0 && transform.localScale.y < 0)
-        {
-            //if someone can find the way to change the z rotation, then make it 180
-            //in such case no need of scaling again
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
-        }*/
-
-/*        if(transform.localScale.y < 0 && rb.velocity.magnitude == 0)
-        {
-            //scalex
-            Vector3 theScale = transform.localScale;
-            theScale.x *= -1;
-            transform.localScale = theScale;
-        }
-
-        if(transform.localScale.x < 0 && rb.velocity.magnitude == 0)
-        {
-            //scaley
-            Vector3 theScale = transform.localScale;
-            theScale.y *= -1;
-            transform.localScale = theScale;
-        }*/
-
-        //it was found that after stopping, if x position is -ve then the fish is upside doen.. 
-        //so lets do, ScaleY *=-1
-
-            if(transform.position.x < 0 && rb.velocity.magnitude == 0)
-        {
-            Vector3 theScale = transform.localScale;
-            if (theScale.y > 0)
-            {
-                theScale.y *= -1;
-                transform.localScale = theScale;
-
-            }
-        }
+        previousPositionY = transform.position.y;
     }
 }
