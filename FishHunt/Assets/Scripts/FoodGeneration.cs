@@ -22,12 +22,12 @@ public class FoodGeneration : MonoBehaviour {
         Instantiate(Food, Target, Quaternion.identity);
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
+    /*void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag.Equals("Sky") || coll.gameObject.tag.Equals("Ground") || coll.gameObject.tag.Equals("Wall") || coll.gameObject.tag.Equals("rsock"))
         {
             Destroy(this.gameObject);
         }
-    }
+    }*/
 
 }
