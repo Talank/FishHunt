@@ -6,7 +6,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class MoveFish : MonoBehaviour
 {
 
-    public float speed;
+    public float speed, BoostingSpeed;
     Rigidbody2D rb;
     //float previousPositionY;
     //string PreviouslyFacing, ToFace;
@@ -40,7 +40,13 @@ public class MoveFish : MonoBehaviour
     void MoveMyFish()
     {
         Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
-        rb.velocity = JoystickPosition * speed;
+        //Check if the boost button is pressed or not! 
+        bool isBoosting = CrossPlatformInputManager.GetButton("Boost");
+        if (CrossPlatformInputManager.GetButton("Boost"))
+            Debug.Log("Boosting ");
+
+        rb.velocity = JoystickPosition * (isBoosting ? BoostingSpeed : speed);
+        isBoosting = false;
         //Debug.Log("moving");
     }
 
