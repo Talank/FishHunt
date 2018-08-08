@@ -1,6 +1,4 @@
-﻿//Joystick ko sabei working xa.. except stop huda saddei -180 degree ma janxa
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
