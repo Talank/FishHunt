@@ -6,16 +6,16 @@ using UnityStandardAssets.CrossPlatformInput;
 public class MoveFish : MonoBehaviour
 {
 
-    public float speed, BoostingSpeed;
+    public float speed;
     Rigidbody2D rb;
     //float previousPositionY;
     //string PreviouslyFacing, ToFace;
     //bool rotateFlag;
     float z;
     Quaternion rot;
+    bool isBoostable;
 
-
-    float getX, getY;
+    //float getX, getY;
 
 
     void Start()
@@ -26,11 +26,13 @@ public class MoveFish : MonoBehaviour
         //previousPositionY = transform.position.y;       
         z = 0;
         //PreviousZRotation = 0;
+        isBoostable = true;     //just for testing purpose it is initialized true
+                                //it should be set false and in time it should be update according to health status
     }
 
     private void Update()
     {
-        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y) ;
+        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
 
         MoveMyFish();
         RotateMyFish(currentPosition);
@@ -40,13 +42,9 @@ public class MoveFish : MonoBehaviour
     void MoveMyFish()
     {
         Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
-        //Check if the boost button is pressed or not! 
         bool isBoosting = CrossPlatformInputManager.GetButton("Boost");
-        if (CrossPlatformInputManager.GetButton("Boost"))
-            Debug.Log("Boosting ");
 
-        rb.velocity = JoystickPosition * (isBoosting ? BoostingSpeed : speed);
-        isBoosting = false;
+        rb.velocity = JoystickPosition *((isBoosting && isBoostable) ? (speed*2): (speed));
         //Debug.Log("moving");
     }
 
@@ -60,13 +58,17 @@ public class MoveFish : MonoBehaviour
         Vector2 v = rb.velocity;
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        Debug.Log("Angle: "+angle);
     }
 
     void ProperScaling()
     {
+        float y;
+
         if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 275)
         {
-     
+
             Vector3 theScale = transform.localScale;
             if (theScale.y > 0)
             {
@@ -79,9 +81,9 @@ public class MoveFish : MonoBehaviour
             }
 
             transform.localScale = theScale;
-            
+            y = theScale.y;
         }
-        
+
 
 
         else
@@ -98,7 +100,37 @@ public class MoveFish : MonoBehaviour
             }
 
             transform.localScale = theScale;
+            y = theScale.y;
         }
+
+
+        //Now let's drag the fish if it is not in motion
+        if (rb.velocity.magnitude == 0)
+            DragFish(y);
+            //DragFish(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+
+    }
+
+
+
+    void DragFish(float yScale)
+    {
+        //if possible we will make the fish moving with a small speed if joystick is not moved
+        //if there is time then, we should make the fish slerp to horizontal position.
+
+
+        //we need to do the drag only when the fish is not moving
+
+        //if yScale is -ve then, the final destination is -180 degree
+        if(yScale < 0)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 180), Time.deltaTime * 0.5f);
+
+        if (yScale > 0)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 0.5f);
+
+
+
+        //if yScale is +ve then, the final destination is 0 degree
 
     }
 
