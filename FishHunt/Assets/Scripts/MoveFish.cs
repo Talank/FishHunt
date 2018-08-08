@@ -44,7 +44,7 @@ public class MoveFish : MonoBehaviour
         Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
         bool isBoosting = CrossPlatformInputManager.GetButton("Boost");
 
-        rb.velocity = JoystickPosition *((isBoosting && isBoostable) ? (speed*2): (speed));
+        rb.velocity = JoystickPosition * ((isBoosting && isBoostable) ? (speed * 2) : (speed));
         //Debug.Log("moving");
     }
 
@@ -59,7 +59,7 @@ public class MoveFish : MonoBehaviour
         var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-        Debug.Log("Angle: "+angle);
+        Debug.Log("Angle: " + angle);
     }
 
     void ProperScaling()
@@ -107,7 +107,7 @@ public class MoveFish : MonoBehaviour
         //Now let's drag the fish if it is not in motion
         if (rb.velocity.magnitude == 0)
             DragFish(y);
-            //DragFish(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+        //DragFish(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
 
     }
 
@@ -122,7 +122,7 @@ public class MoveFish : MonoBehaviour
         //we need to do the drag only when the fish is not moving
 
         //if yScale is -ve then, the final destination is -180 degree
-        if(yScale < 0)
+        if (yScale < 0)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 180), Time.deltaTime * 0.5f);
 
         if (yScale > 0)
