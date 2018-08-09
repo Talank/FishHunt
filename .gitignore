@@ -15,6 +15,7 @@ sysinfo.txt
 
 # Visual Studio cache directory
 .vs/
+.apk/
 
 ###
 # VS/MD solution and project files
