@@ -7,7 +7,7 @@ public class DestroyAfterDelay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        timer = 1000;
+        timer = 1400;
     }
 	
 	// Update is called once per frame

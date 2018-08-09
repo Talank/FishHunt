@@ -28,6 +28,68 @@ public class GenerateBubble : MonoBehaviour {
 
     void Generate()
     {
+        //To randomly select any 2 obstracles in the ocean ground
+        Vector3 plantObstracle = new Vector3(-15.9f, -14.5f, -1);
+        Vector3 rockObstracle= new Vector3(22.4f, -14.46f, -1);
+
+        int rand = (int)Random.Range(1, 5);
+
+        switch (rand)
+        {
+            case 1: //1-3
+                plantObstracle = new Vector3(-12.4f, -14.6f, -1);
+                rockObstracle = new Vector3(-8.1f, -14.6f, -1);
+
+                //PlantX = plant1.transform.position.x;
+                //RockX = rock3.transform.position.x;
+                //Target.x = PlantX;
+                //Instantiate(Bubble, Target, Quaternion.identity);
+                break;
+
+            case 2: //2-4
+                plantObstracle = new Vector3(8.26f, -14.1f, -1);
+                rockObstracle = new Vector3(-15.9f, -14.5f, -1);
+
+                //PlantX = plant2.transform.position.x;
+                //RockX = rock4.transform.position.x;
+                //Target.x = PlantX;
+                //Instantiate(Bubble, Target, Quaternion.identity);
+                break;
+
+            case 3: //3-5
+                plantObstracle = new Vector3(-20.2f, -13.4f, -1);
+                rockObstracle = new Vector3(22.4f, -14.46f, -1);
+
+                //PlantX = plant3.transform.position.x;
+                //RockX = rock5.transform.position.x;
+                //Target.x = PlantX;
+                //Instantiate(Bubble, Target, Quaternion.identity);
+                break;
+
+            case 4: //4-1
+                plantObstracle = new Vector3(17.6f, -14.2f, -1);
+                rockObstracle = new Vector3(2.8f, -14f, -1);
+
+                //PlantX = plant4.transform.position.x;
+                //RockX = rock1.transform.position.x;
+                //Target.x = PlantX;
+                //Instantiate(Bubble, Target, Quaternion.identity);
+                break;
+
+            case 5: //5-2
+                plantObstracle = new Vector3(-3.8f, -14.3f, -1);
+                rockObstracle = new Vector3(12.99f, -14.8f, -1);
+
+                //PlantX = plant5.transform.position.x;
+                //RockX = rock2.transform.position.x;
+                //Target.x = PlantX;
+                //Instantiate(Bubble, Target, Quaternion.identity);
+                break;
+        }
+
+
+
+
 
 
         //Debug.Log("Generated");
@@ -35,7 +97,11 @@ public class GenerateBubble : MonoBehaviour {
         //var Plantx = plant1.transform.position.x; 
 
         //Target.x += 5f;
-        GameObject clone = (GameObject)Instantiate(Bubble, new Vector3(0, -13f, 0), Quaternion.identity);
+        //GameObject clone = (GameObject)Instantiate(Bubble, new Vector3(0, -13f, 0), Quaternion.identity);
         //Destroy(clone, 1.0f);
+
+
+        Instantiate(Bubble, plantObstracle , Quaternion.identity);
+        Instantiate(Bubble, rockObstracle , Quaternion.identity);
     }
 }

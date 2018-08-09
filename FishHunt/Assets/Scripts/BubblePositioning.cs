@@ -11,7 +11,7 @@ public class BubblePositioning : MonoBehaviour
 
     void Start()
     {
-        int rand = (int)Random.Range(1, 5);
+       /* int rand = (int)Random.Range(1, 5);
         
     switch (rand)
             {
@@ -49,22 +49,29 @@ public class BubblePositioning : MonoBehaviour
                     //Target.x = PlantX;
                     //Instantiate(Bubble, Target, Quaternion.identity);
                     break;
-            }
+            }*/
         }
 
-        void OnAnimatorMove()
+    /*void OnAnimatorMove()
+{
+    Animator animator = GetComponent<Animator>();
+
+    if (animator)
     {
-        Animator animator = GetComponent<Animator>();
+        //Debug.Log(PlantX);
+        Vector3 newPosition = transform.position;
+        Debug.Log(newPosition);
+        newPosition.x += PlantX;
+        //newPosition.z += animator.GetFloat("Runspeed") * Time.deltaTime;
+        transform.position = newPosition;
+        //Debug.Log(transform.position);
+    }
+}*/
 
-        if (animator)
-        {
-            //Debug.Log(PlantX);
-            Vector3 newPosition = transform.position;
-            Debug.Log(newPosition);
-            newPosition.x += PlantX;
-            //newPosition.z += animator.GetFloat("Runspeed") * Time.deltaTime;
-            transform.position = newPosition;
-            //Debug.Log(transform.position);
-        }
+    private void Update()
+    {
+        Vector3 bubblePosition = transform.position;
+        bubblePosition.y += 1 * Time.deltaTime;
+        transform.position = bubblePosition;
     }
 }
