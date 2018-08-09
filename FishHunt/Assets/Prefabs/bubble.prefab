@@ -50,7 +50,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1330591464662294}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 081d1d1e3e5d6bc4bb916add088cebd5, type: 2}
   m_CullingMode: 0
@@ -83,16 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ff6936aa23b5b94ab679d539b87c1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  plant1: {fileID: 1053999996650636, guid: b74b1b6448a2f0040b91a77be4f93c82, type: 2}
-  plant2: {fileID: 1603389803892342, guid: 63980c2be34ee3a43ae997978afe5c40, type: 2}
-  plant3: {fileID: 1404637714346128, guid: 3d183ba1904c9a045b9ea7bc6a8b4c8c, type: 2}
-  plant4: {fileID: 1853967542113022, guid: 0ce1445dc7f97f4458fd591e2bdcd673, type: 2}
-  plant5: {fileID: 1164803548052574, guid: 258c179356b7c6043a20512c51dbe606, type: 2}
-  rock1: {fileID: 1693746097812416, guid: e00a4c83864c71e439421393fb40d1eb, type: 2}
-  rock2: {fileID: 1997621318514212, guid: 01f2d983e642636468d3dccb8b39ad5f, type: 2}
-  rock3: {fileID: 1350839048213668, guid: 3de7459759449cd41bd1ba92bcc3b2fa, type: 2}
-  rock4: {fileID: 1749141965039120, guid: 796deaab2a7899e46b071ed7a911bef8, type: 2}
-  rock5: {fileID: 1720564050467128, guid: 0fb8b03e444eb174094e53717044f6e9, type: 2}
 --- !u!212 &212419053654295944
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,94 +1,139 @@
-﻿using System.Collections;
+﻿//This is final for joystick
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class MoveFish : MonoBehaviour
 {
 
     public float speed;
-    //private GameObject Fish;
-    float previousPositionDifferenceY;
-    float previousPositionDifferenceX;
-    bool SignChangeOnYscale;
+    Rigidbody2D rb;
+    //float previousPositionY;
+    //string PreviouslyFacing, ToFace;
+    //bool rotateFlag;
+    float z;
+    Quaternion rot;
+    bool isBoostable;
+
+    //float getX, getY;
+
 
     void Start()
     {
-        previousPositionDifferenceY = Input.mousePosition.y;
-        previousPositionDifferenceX = Input.mousePosition.x;
-        SignChangeOnYscale = false;
+        //rotateFlag = false;
+        //PreviouslyFacing = "Right";        
+        rb = gameObject.GetComponent<Rigidbody2D>();
+        //previousPositionY = transform.position.y;       
+        z = 0;
+        //PreviousZRotation = 0;
+        isBoostable = true;     //just for testing purpose it is initialized true
+                                //it should be set false and in time it should be update according to health status
     }
 
     private void Update()
     {
-        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        target.z = transform.position.z;
+        Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
 
-        transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime / transform.localScale.x);
-
-        //rotation
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 5.23f;
-
-        if (mousePos.x < 0)
-            SignChangeOnYscale = true;
-
-        Vector3 objectPos = Camera.main.WorldToScreenPoint(transform.position);
-        mousePos.x = mousePos.x - objectPos.x;
-        mousePos.y = mousePos.y - objectPos.y;
-
-        float angle = Mathf.Atan2(mousePos.y, mousePos.x) * Mathf.Rad2Deg;
-
-        if(mousePos.x < 0)
-        {
-            Vector3 theScale = transform.localScale;
-            if(theScale.y > 0)
-            {
-                theScale.y *= -1;
-                transform.localScale = theScale;
-            }
-        }
-
-        if(mousePos.x > 0)
-        {
-            Vector3 theScale = transform.localScale;
-            if (theScale.y < 0)
-            {
-                theScale.y *= -1;
-                transform.localScale = theScale;
-                if (angle == 0)
-                    angle += 180;
-            }
-        }
-
-        previousPositionDifferenceY = mousePos.y;
-        previousPositionDifferenceX = mousePos.x;
-
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-
-
-        if(SignChangeOnYscale)
-        {
-            Vector3 theScale = transform.localScale;
-            theScale.y *= -1;
-            transform.localScale = theScale;
-            SignChangeOnYscale = false;
-        }
-
-        if (transform.localRotation.z == 0 && transform.localScale.y <0)
-        {
-            //if someone can find the way to change the z rotation, then make it 180
-            //in such case no need of scaling again
-            Vector3 theScale = transform.localScale;
-            theScale.y *= -1;
-            transform.localScale = theScale;
-        }
+        MoveMyFish();
+        RotateMyFish(currentPosition);
+        ProperScaling();
     }
-    
-    public void Rotating()
+
+    void MoveMyFish()
     {
-        //keep the rotating item code here
+        Vector2 JoystickPosition = new Vector2(CrossPlatformInputManager.GetAxis("Horizontal"), CrossPlatformInputManager.GetAxis("Vertical"));
+        bool isBoosting = CrossPlatformInputManager.GetButton("Boost");
+
+        rb.velocity = JoystickPosition * ((isBoosting && isBoostable) ? (speed * 2) : (speed));
+        //Debug.Log("moving");
     }
-    
+
+
+
+    void RotateMyFish(Vector2 currentPosition)
+    {
+        if (rb.velocity.magnitude == 0)
+            return;
+
+        Vector2 v = rb.velocity;
+        var angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        Debug.Log("Angle: " + angle);
+    }
+
+    void ProperScaling()
+    {
+        float y;
+
+        if (transform.rotation.eulerAngles.z > 90 && transform.rotation.eulerAngles.z < 275)
+        {
+
+            Vector3 theScale = transform.localScale;
+            if (theScale.y > 0)
+            {
+                theScale.y *= -1;
+            }
+
+            if (theScale.x < 0)
+            {
+                theScale.x *= -1;
+            }
+
+            transform.localScale = theScale;
+            y = theScale.y;
+        }
+
+
+
+        else
+        {
+            Vector3 theScale = transform.localScale;
+            if (theScale.y < 0.0)
+            {
+                theScale.y *= -1;
+            }
+
+            if (theScale.x < 0.0)
+            {
+                theScale.x *= -1;
+            }
+
+            transform.localScale = theScale;
+            y = theScale.y;
+        }
+
+
+        //Now let's drag the fish if it is not in motion
+        if (rb.velocity.magnitude == 0)
+            DragFish(y);
+        //DragFish(new Vector3(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z));
+
+    }
+
+
+
+    void DragFish(float yScale)
+    {
+        //if possible we will make the fish moving with a small speed if joystick is not moved
+        //if there is time then, we should make the fish slerp to horizontal position.
+
+
+        //we need to do the drag only when the fish is not moving
+
+        //if yScale is -ve then, the final destination is -180 degree
+        if (yScale < 0)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 180), Time.deltaTime * 0.5f);
+
+        if (yScale > 0)
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, 0), Time.deltaTime * 0.5f);
+
+
+
+        //if yScale is +ve then, the final destination is 0 degree
+
+    }
+
 }
