@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
-    public static bool quitMenuEnabled = false;
     public GameObject mainMenuUI;
     public GameObject quitMenuUI;
 
@@ -24,26 +23,12 @@ public class MainMenu : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-           if(quitMenuEnabled)
-            {
-                disableQuitMenu();
-                mainMenuUI.SetActive(true);
-            }
-           else
-            {
                 mainMenuUI.SetActive(false);
                 enableQuitMenu();
-            }
         }
-    }
-    void disableQuitMenu()
-    {
-        quitMenuUI.SetActive(false);
-        quitMenuEnabled = false;
     }
     void enableQuitMenu()
     {
         quitMenuUI.SetActive(true);
-        quitMenuEnabled = true;
     }
 }
