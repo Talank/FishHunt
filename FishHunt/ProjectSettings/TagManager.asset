@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - rock
   - Sky
+  - Score
   layers:
   - Default
   - TransparentFX

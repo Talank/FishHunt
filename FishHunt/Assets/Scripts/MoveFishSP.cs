@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class MoveFish : MonoBehaviour
+public class MoveFishSP : MonoBehaviour
 {
 
     public float speed;
