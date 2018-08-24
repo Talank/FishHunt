@@ -7,7 +7,7 @@ public class EatFood : MonoBehaviour {
     Animator anim;
     public float Increase;
     public Text Letters;
-    //private int Score = 0;
+    private int Score = 0;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -15,25 +15,25 @@ public class EatFood : MonoBehaviour {
 
 
 
-        //void OnCollisionEnter2D(Collision2D coll)
-        //    {
-        //        if (coll.gameObject.tag.Equals("Food"))
-        //        {
-        //            anim.SetTrigger("open");
-        //            if(transform.localScale.y<0)
-        //            {
-        //                transform.localScale += new Vector3(Increase, -Increase, 0);
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.tag.Equals("Food"))
+        {
+            anim.SetTrigger("open");
+            if (transform.localScale.y < 0)
+            {
+                transform.localScale += new Vector3(Increase, -Increase, 0);
 
-        //            }
-        //            else
-        //            {
-        //                transform.localScale += new Vector3(Increase, Increase, 0);
-        //            }
+            }
+            else
+            {
+                transform.localScale += new Vector3(Increase, Increase, 0);
+            }
 
-        //            Score += 2;
-        //            Letters.text = "SCORE: " + Score;
+            Score += 2;
+            Letters.text = "SCORE: " + Score;
 
-        //            Destroy(coll.gameObject);
-        //        }
-        //    }
+            Destroy(coll.gameObject);
+        }
+    }
 }
