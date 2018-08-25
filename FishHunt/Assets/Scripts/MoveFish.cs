@@ -272,7 +272,7 @@ namespace FishHunt.Player
         [Command]
         void CmdScaling(Vector3 myScale, GameObject coll1)
         {
-            anim.SetTrigger("open");
+            //anim.SetTrigger("open");
             RpcScaling1(myScale);
             Destroy(coll1.gameObject);
         }
@@ -281,6 +281,7 @@ namespace FishHunt.Player
         [ClientRpc]
         void RpcScaling1(Vector3 myScale)
         {
+            anim.SetTrigger("open");
             if (myScale.y < 0)
             {
                 myScale += new Vector3(Increase, -Increase, 0);
