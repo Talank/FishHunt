@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Food: {fileID: 1453874723008872, guid: 8cb708e1fd579b04582e1ff4d4c05954, type: 2}
-  Speed: 2
+  Speed: 1.2
 --- !u!4 &95778652
 Transform:
   m_ObjectHideFlags: 0
@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bubble: {fileID: 1330591464662294, guid: 3e75e7dc70fef7c418dcfc02a11a1f13, type: 2}
-  GenerationSpeed: 0
+  GenerationSpeed: 10
   plant1: {fileID: 1053999996650636, guid: b74b1b6448a2f0040b91a77be4f93c82, type: 2}
   plant2: {fileID: 1603389803892342, guid: 63980c2be34ee3a43ae997978afe5c40, type: 2}
   plant3: {fileID: 1404637714346128, guid: 3d183ba1904c9a045b9ea7bc6a8b4c8c, type: 2}
@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 384001070}
   gameOverUI: {fileID: 1321463604}
-  timeLeft: 70
+  timeLeft: 60
 --- !u!114 &384001070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3099,11 +3099,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11400016, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 2}
       propertyPath: m_Text
