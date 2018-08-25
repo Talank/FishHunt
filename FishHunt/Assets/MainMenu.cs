@@ -9,6 +9,11 @@ public class MainMenu : MonoBehaviour {
     public GameObject mainMenuUI;
     public GameObject quitMenuUI;
 
+    public void QuickPlay()
+    {
+        SceneManager.LoadScene("Singleplayer");
+    }
+
 	public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
