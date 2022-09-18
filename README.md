@@ -8,6 +8,19 @@ Also, if you have installed this game and found any bug, then you can make an is
 
 You can build and install the game using unity game engine and android or iOS SDK. The root folder for game is `/FishHunt` The `/Assets` folder contains all the assets used for the game. These assets were developed using photoshop and some of the `.psd` files are also there which can be edited to create further assets.
 
+# Acknowledgments
+If you use any logic or asset of this project, please cite this GitHub repository and our original project:
+'''
+author      = "Madan Poudel, Prajwal Adhikari, Talank Baral",
+title       = "Fish Hunt",
+university  = "Pokhara University",
+college     = "Gandaki College of Engineering and Science",
+month       = "August",
+year        = "2018"
+'''
+This project was developed in Department of Research and Development
+,GANDAKI COLLEGE OF ENGINEERING AND SCIENCE. And a copy of project report is available in the library of Gandaki Collece of Engineering and Science.
+
 # Game scenes
 When you open the game then you will see the start menu after the splash screen. Then you can play as singleplayer directly or play in multiplayer mode. In multiplayer option you have a choice host a game or join the game hosted in some else's device. Multiplayer players can join to the game using localhost(local multiplayer mode) or using unity's host(using internet). Some of the screenshots of the game scene are as follows:
 
