@@ -10,14 +10,14 @@ You can build and install the game using unity game engine and android or iOS SD
 
 # Acknowledgments
 If you use any logic or asset of this project, please cite this GitHub repository and our original project:
-'''
+```
 author      = "Madan Poudel, Prajwal Adhikari, Talank Baral",
 title       = "Fish Hunt",
 university  = "Pokhara University",
 college     = "Gandaki College of Engineering and Science",
 month       = "August",
 year        = "2018"
-'''
+```
 This project was developed in Department of Research and Development
 ,GANDAKI COLLEGE OF ENGINEERING AND SCIENCE. And a copy of project report is available in the library of Gandaki Collece of Engineering and Science.
 
